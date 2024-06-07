@@ -120,6 +120,115 @@ $projects = getAllProject();
 							<div class="col-md-6 d-flex">
 								<div class="card profile-box flex-fill">
 									<div class="card-body">
+										<h3 class="card-title">Personal information</h3>
+											<ul class="personal-info">
+												<li>
+													<div class="title">Full Name</div>
+													<div class="text">
+														<?php echo $emp_sel['first_name'] . " " . $emp_sel['last_name'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Email</div>
+													<div class="text">
+														<?php echo $emp_sel['mail'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Joining Date</div>
+													<div class="text">
+														<?php echo $emp_sel['joining_date'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Phone Number</div>
+													<div class="text">
+														<?php echo $emp_sel['phone'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Role</div>
+													<div class="text">
+														<?php echo $emp_sel['employee_type'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Department</div>
+													<div class="text">
+														<?php echo $emp_sel['department'][0]['department_name'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Designation</div>
+													<div class="text">
+														<?php echo $emp_sel['designation'][0]['designation'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Previous Organisation</div>
+													<div class="text">
+														<?php echo $emp_sel['previous_org'] ?>
+													</div>
+												</li>
+											</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 d-flex">
+								<div class="card profile-box flex-fill">
+									<div class="card-body">
+										<h3 class="card-title">Reference</h3>
+											<ul class="personal-info">
+												<li>
+													<div class="title">Hired From</div>
+													<div class="text">
+														<?php echo $emp_sel['reference'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Family Name</div>
+													<div class="text">
+														<?php echo $emp_sel['family_name'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Family Contact</div>
+													<div class="text">
+														<?php echo $emp_sel['family_contact'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Family Relation</div>
+													<div class="text">
+														<?php echo $emp_sel['family_relation'] ?>
+													</div>
+												</li>
+												<h3 class="card-title">Verification</h3>
+												<li>
+													<div class="title">Name</div>
+													<div class="text">
+														<?php echo $emp_sel['verify_name'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Relation</div>
+													<div class="text">
+														<?php echo $emp_sel['verify_relation'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">Contact</div>
+													<div class="text">
+														<?php echo $emp_sel['verify_contact'] ?>
+													</div>
+												</li>
+											</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="card profile-box flex-fill">
+									<div class="card-body">
 										<h3 class="card-title">Bank information<a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#bank_details"><i class="fa-solid fa-pencil"></i></a></h3>
 											<ul class="personal-info">
 												<li>
@@ -146,6 +255,161 @@ $projects = getAllProject();
 														<?php echo $emp_sel['pan_no'] ?>
 													</div>
 												</li>
+											</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 d-flex">
+								<div class="card profile-box flex-fill">
+									<div class="card-body">
+										<h3 class="card-title">Uploaded Documents</h3>
+											<ul class="personal-info">
+												<div class="tab-content" style="padding-top: 0px!important;">
+													<div id="emp_profile" class="pro-overview tab-pane fade show active">
+														<div class="row">
+															<div class="col-md-6 d-flex">
+																<div class="card profile-box flex-fill">
+																	<div class="card-body">
+																		<li>
+																			<div class="text">
+																				<div class="title" style="width:100%!important">Aadhaar: </div><br>
+																				<?php
+																				$aadhaar = isset($emp_sel['aadhaar'])? $emp_sel['aadhaar']: '';
+																				$extension1 = pathinfo($aadhaar, PATHINFO_EXTENSION);
+																				if($extension1 == 'pdf'){
+																					echo '<a href="' . $emp_sel['aadhaar'] . '" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 20px"></i></a>';
+																					echo '<iframe src="' . $emp_sel['aadhaar'] . '" width="100%" height="80px"></iframe>';
+																				} elseif($extension1 == 'png'){
+																					echo '<a href="' . $emp_sel['aadhaar'] . '" target="_blank"><img class="img" src="' . $emp_sel['aadhaar'] . '" style="height:50px;"></a>';
+																				} else{
+																					echo "No image found for ID ".$emp_sel['id'];
+																				}
+																				?>
+																			</div>
+																		</li>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6 d-flex">
+																<div class="card profile-box flex-fill">
+																	<div class="card-body">
+																		<li>
+																			<div class="text">
+																				<div class="title" style="width:100%!important">PAN: </div><br>
+																				<?php
+																				$pan = isset($emp_sel['pan'])? $emp_sel['pan']: '';
+																				$extension1 = pathinfo($pan, PATHINFO_EXTENSION);
+																				if($extension1 == 'pdf'){
+																					echo '<a href="' . $emp_sel['pan'] . '" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 20px"></i></a>';
+																					echo '<iframe src="' . $emp_sel['pan'] . '" width="100%" height="80px"></iframe>';
+																				} elseif($extension1 == 'png'){
+																					echo '<a href="' . $emp_sel['pan'] . '" target="_blank"><img class="img" src="' . $emp_sel['pan'] . '" style="height:50px;"></a>';
+																				} else{
+																					echo "No image found for ID ".$emp_sel['id'];
+																				}
+																				?>
+																			</div>
+																		</li>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6 d-flex">
+																<div class="card profile-box flex-fill">
+																	<div class="card-body">
+																		<li>
+																			<div class="text">
+																				<div class="title" style="width:100%!important">Passing certificate: </div><br>
+																				<?php
+																				$pass_cert = isset($emp_sel['pass_cert'])? $emp_sel['pass_cert']: '';
+																				$extension1 = pathinfo($pass_cert, PATHINFO_EXTENSION);
+																				if($extension1 == 'pdf'){
+																					echo '<a href="' . $emp_sel['pass_cert'] . '" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 20px"></i></a>';
+																					echo '<iframe src="' . $emp_sel['pass_cert'] . '" width="100%" height="80px"></iframe>';
+																				} elseif($extension1 == 'png'){
+																					echo '<a href="' . $emp_sel['pass_cert'] . '" target="_blank"><img class="img" src="' . $emp_sel['pass_cert'] . '" style="height:50px;"></a>';
+																				} else{
+																					echo "No image found for ID ".$emp_sel['id'];
+																				}
+																				?>
+																			</div>
+																		</li>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6 d-flex">
+																<div class="card profile-box flex-fill">
+																	<div class="card-body">
+																		<li>
+																			<div class="text">
+																				<div class="title" style="width:100%!important">Extra certificate: </div><br>
+																				<?php
+																				$extra_cert = isset($emp_sel['extra_cert'])? $emp_sel['extra_cert']: '';
+																				$extension1 = pathinfo($extra_cert, PATHINFO_EXTENSION);
+																				if($extension1 == 'pdf'){
+																					echo '<a href="' . $emp_sel['extra_cert'] . '" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 20px"></i></a>';
+																					echo '<iframe src="' . $emp_sel['extra_cert'] . '" width="100%" height="80px"></iframe>';
+																				} elseif($extension1 == 'png'){
+																					echo '<a href="' . $emp_sel['extra_cert'] . '" target="_blank"><img class="img" src="' . $emp_sel['extra_cert'] . '" style="height:50px;"></a>';
+																				} else{
+																					echo "No image found for ID ".$emp_sel['id'];
+																				}
+																				?>
+																			</div>
+																		</li>
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6 d-flex">
+																<div class="card profile-box flex-fill">
+																	<div class="card-body">
+																		<li>
+																			<div class="text">
+																				<div class="title" style="width:100%!important">Experience certificate: </div><br>
+																				<?php 
+																				$exp_certArray = $emp_sel['exp_cert']? json_decode($emp_sel['exp_cert'], true): array();
+																				if(!empty($exp_certArray)){
+																					foreach ($exp_certArray as $img) {
+
+																						// echo $img.'<br>';
+																						$extension4 = pathinfo($img, PATHINFO_EXTENSION);
+																						if($extension4 == 'pdf'){
+																							echo '<a href="' . $img . '" target="_blank"><i class="fa-solid fa-file-pdf" style="font-size: 20px"></i></a>';
+																							echo '<iframe src="' . $img . '" width="100%" height="180px"></iframe>';
+																						} elseif($extension4 == 'png'){
+																							echo '<a href="' . $img . '" target="_blank"><img class="img" src="' . $img . '" style="height:50px;"></a>';
+																						} else{
+																							echo "No image found for ID ".$emp_sel['id'];
+																						}
+																					}
+																				}
+																				?>
+																			</div>
+																		</li>
+																	</div>
+																</div>
+															</div>
+															
+														</div>
+													</div>
+												</div>
+												<!-- <li>
+													<div class="title">Bank account No.</div>
+													<div class="text">
+														<?php echo $emp_sel['account_no'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">IFSC Code</div>
+													<div class="text">
+														<?php echo $emp_sel['ifsc_code'] ?>
+													</div>
+												</li>
+												<li>
+													<div class="title">PAN No</div>
+													<div class="text">
+														<?php echo $emp_sel['pan_no'] ?>
+													</div>
+												</li> -->
 											</ul>
 									</div>
 								</div>
