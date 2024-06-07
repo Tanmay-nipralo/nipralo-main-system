@@ -61,6 +61,7 @@ if ($getCount['employee_type'] != "Admin") {
 												<div class='dropdown dropdown-action'>
 													<a href='#' class='action-icon dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'><i class='material-icons'>more_vert</i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
+														<a class='dropdown-item' href='profile.php?idd=<?php echo $employee['id'] ?>'><i class='fa-regular fa-eye m-r-5'></i> View</a>
 														<a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_employee<?php echo $employee['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i> Edit</a>
 														<a class='dropdown-item' href='employees.php?deleteid=<?php echo $employee['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i> Delete</a>
 													</div>
@@ -338,7 +339,7 @@ if ($getCount['employee_type'] != "Admin") {
 									<input type="file" accept="image/*" class="form-control" name="fimages" />
 									<input type="hidden" name="previous_image" value="<?php echo $row3['photo']; ?>">
 									<?php if (!$row3) {
-										echo "No image found for ID $id";
+										echo "No image found for ID ".$row3['id'];
 									} else {
 										echo '<img src="' . $row3['photo'] . '" style="height:50px;">';
 									} ?>
@@ -429,7 +430,7 @@ if ($getCount['employee_type'] != "Admin") {
 										} elseif($extension1 == 'png'){
 											echo '<img class="img" src="' . $row3['aadhaar'] . '" style="height:50px;">';
 										} else{
-											echo "No image found for ID $id";
+											echo "No image found for ID ".$row3['id'];
 										}
 										?>
 									</div>
@@ -446,7 +447,7 @@ if ($getCount['employee_type'] != "Admin") {
 										} elseif($extension2 == 'png'){
 											echo '<img class="img" src="' . $row3['pan'] . '" style="height:50px;">';
 										} else{
-											echo "No image found for ID $id";
+											echo "No image found for ID ".$row3['id'];
 										}
 										?>
 									</div>
@@ -463,7 +464,7 @@ if ($getCount['employee_type'] != "Admin") {
 										} elseif($extension3 == 'png'){
 											echo '<img class="img" src="' . $row3['pass_cert'] . '" style="height:50px;">';
 										} else{
-											echo "No image found for ID $id";
+											echo "No image found for ID ".$row3['id'];
 										}
 										?>
 									</div>
@@ -473,7 +474,7 @@ if ($getCount['employee_type'] != "Admin") {
 										<input class="form-control" accept="image/*,.pdf" type="file" multiple name="exp_cert[]">
 										<input type="hidden" name="previous_exp_cert" value="<?php echo htmlspecialchars($row3['exp_cert']); ?>">
 										<?php 
-										$exp_certArray = json_decode($row3['exp_cert'], true);
+										$exp_certArray = $row3['exp_cert']? json_decode($row3['exp_cert'], true): array();
 										// echo "<pre>";
 										// var_dump($exp_certArray);
 										// echo "<br";
@@ -487,7 +488,7 @@ if ($getCount['employee_type'] != "Admin") {
 												} elseif($extension4 == 'png'){
 													echo '<img class="img" src="' . $img . '" style="height:50px;">';
 												} else{
-													echo "No image found for ID $id";
+													echo "No image found for ID ".$row3['id'];
 												}
 											}
 										}
@@ -506,7 +507,7 @@ if ($getCount['employee_type'] != "Admin") {
 										} elseif($extension == 'png'){
 											echo '<img class="img" src="' . $row3['extra_cert'] . '" style="height:50px;">';
 										} else{
-											echo "No image found for ID $id";
+											echo "No image found for ID ".$row3['id'];
 										}
 										?>
 									</div>
