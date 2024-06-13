@@ -112,6 +112,7 @@ if ($getCount['employee_type'] != "Admin") {
 												<label class="col-form-label">Categories</label>
 												<select class="select" name="categories">
 													<option>Select Categories</option>
+													<option>BDS</option>
 													<option>UI/UX</option>
 													<option>Website</option>
 													<option>App</option>
