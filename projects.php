@@ -229,7 +229,7 @@ if ($getCount['employee_type'] != "Admin") {
 												<label class="col-form-label">Status</label>
 												<select class="select" name="project_status">
 													<option value="" <?php echo ($project1['project_status'] == '') ? 'selected' : ''; ?>>Select Project Status</option>
-													<option value="Outgoing Projects" <?php echo ($project1['project_status'] == 'Outgoing Projects') ? 'selected' : ''; ?>>Outgoing Projects</option>
+													<option value="Ongoing Projects" <?php echo ($project1['project_status'] == 'Ongoing Projects') ? 'selected' : ''; ?>>Ongoing Projects</option>
 													<option value="Hold Projects" <?php echo ($project1['project_status'] == 'Hold Projects') ? 'selected' : ''; ?>>Hold Projects</option>
 													<option value="Completed Projects" <?php echo ($project1['project_status'] == 'Completed Projects') ? 'selected' : ''; ?>>Completed Projects</option>
 												</select>
