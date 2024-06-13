@@ -211,6 +211,7 @@ if ($getCount['employee_type'] != "Admin") {
 											<div class="input-block mb-3">
 												<label class="col-form-label">Categories</label>
 												<select class="select" name="categories">
+													<option <?php echo ($project1['project_category'] == 'BDS') ? 'selected' : ''; ?>>BDS</option>
 												<option <?php echo ($project1['project_category'] == 'UI/UX') ? 'selected' : ''; ?>>UI/UX</option>
 													<option <?php echo ($project1['project_category'] == 'Website') ? 'selected' : ''; ?>>Website</option>
 													<option <?php echo ($project1['project_category'] == 'App') ? 'selected' : ''; ?>>App</option>
