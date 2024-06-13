@@ -112,6 +112,7 @@ if ($getCount['employee_type'] != "Admin") {
 												<label class="col-form-label">Categories</label>
 												<select class="select" name="categories">
 													<option>Select Categories</option>
+													<option>BDS</option>
 													<option>UI/UX</option>
 													<option>Website</option>
 													<option>App</option>
@@ -130,9 +131,9 @@ if ($getCount['employee_type'] != "Admin") {
 												<label class="col-form-label">Status</label>
 												<select class="select" name="project_status">
 													<option>Select Project Status</option>
-													<option>Outgoing Projects</option>
-													<option>Hold Projects</option>
-													<option>Completed Projects</option>
+													<option value="Ongoing Projects" >Ongoing Projects</option>
+													<option value="Hold Projects" >Hold Projects</option>
+													<option value="Completed Projects" >Completed Projects</option>
 												</select>
 											</div>
 										</div>

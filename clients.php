@@ -101,16 +101,26 @@ if ($getCount['employee_type'] != "Admin") {
 												<input class="form-control floating" type="email" name="mail_id">
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="input-block mb-3">
 												<label class="col-form-label">Primary Phone <span class="text-danger">*</span></label>
 												<input class="form-control" type="text" name="primary_phone">
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="input-block mb-3">
 												<label class="col-form-label">Secondary Phone </label>
 												<input class="form-control" type="text" name="secondary_phone">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="input-block mb-3">
+												<label class="col-form-label">Our Company <span class="text-danger">*</span></label>
+												<select class="form-control" name="our_company" id="" required>
+													<option value="" selected disabled>select our company</option>
+													<option value="big_dreams">Big Dreams</option>
+													<option value="nipralo">Nipralo</option>
+												</select>
 											</div>
 										</div>
 										<div class="col-md-12">
@@ -170,16 +180,26 @@ if ($getCount['employee_type'] != "Admin") {
 												<input class="form-control floating" type="email" name="mail_id" value="<?php echo $row2['client_mail'];?>" >
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="input-block mb-3">
 												<label class="col-form-label">Primary Phone <span class="text-danger">*</span></label>
 												<input class="form-control" type="text" name="primary_phone" value="<?php echo $row2['primary_phone'];?>">
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="input-block mb-3">
 												<label class="col-form-label">Secondary Phone </label>
 												<input class="form-control" type="text" name="secondary_phone" value="<?php echo $row2['secondary_phone'];?>">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="input-block mb-3">
+												<label class="col-form-label">Our Company <span class="text-danger">*</span></label>
+												<select class="form-control" name="our_company" id="" required>
+													<option value="" selected disabled>select our company</option>
+													<option value="big_dreams" <?= $row2['our_company'] == 'big_dreams'? 'Selected': '' ?> >Big Dreams</option>
+													<option value="nipralo" <?= $row2['our_company'] == 'nipralo'? 'Selected': '' ?> >Nipralo</option>
+												</select>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -265,6 +285,7 @@ if (isset($_GET['id'])) {
 if(isset($_POST['addClient'])){
 	$client_name = $_POST["client_name"];
 	$mail_id = $_POST["mail_id"];
+	$our_company = $_POST["our_company"];
 	$primary_phone = $_POST["primary_phone"];
 	$secondary_phone = $_POST["secondary_phone"];
 	$company_name = $_POST["company_name"];
@@ -285,7 +306,7 @@ if(isset($_POST['addClient'])){
 				}
 	}
 
-	$sql = "INSERT INTO clients (client_name, client_mail, primary_phone, secondary_phone, company_name, company_des,company_address, company_logo,created_at, updated_at) VALUES ('$client_name', '$mail_id', '$primary_phone', '$secondary_phone', '$company_name','$company_description','$company_address','$fimagee','$created_time', '$update_time')";
+	$sql = "INSERT INTO clients (client_name, client_mail, primary_phone, secondary_phone, our_company, company_name, company_des,company_address, company_logo,created_at, updated_at) VALUES ('$client_name', '$mail_id', '$primary_phone', '$secondary_phone', '$our_company', '$company_name','$company_description','$company_address','$fimagee','$created_time', '$update_time')";
 	$iquery = mysqli_query($conn, $sql);
 		if ($iquery) {
 			?>
@@ -312,6 +333,7 @@ if(isset($_POST['addClient'])){
 		$id =$_POST['id'];
 		$client_name = $_POST["client_name"];
 		$mail_id = $_POST["mail_id"];
+		$our_company = $_POST["our_company"];
 		$primary_phone = $_POST["primary_phone"];
 		$secondary_phone = $_POST["secondary_phone"];
 		$company_name = $_POST["company_name"];
@@ -335,7 +357,7 @@ if(isset($_POST['addClient'])){
 				$fimagee = $_POST['previous_image'];
 			}
 
-			$query = "UPDATE clients  SET client_name = '$client_name',client_mail='$mail_id',primary_phone='$primary_phone',secondary_phone='$secondary_phone',company_name='$company_name',company_des='$company_description',company_address='$company_address',company_logo='$fimagee',updated_at ='$update_time' WHERE id = ".$id;
+			$query = "UPDATE clients  SET client_name = '$client_name',client_mail='$mail_id',primary_phone='$primary_phone',secondary_phone='$secondary_phone', our_company='$our_company', company_name='$company_name',company_des='$company_description',company_address='$company_address',company_logo='$fimagee',updated_at ='$update_time' WHERE id = ".$id;
 			$iquery = mysqli_query($conn, $query);
 		if ($iquery) {
 			?>
