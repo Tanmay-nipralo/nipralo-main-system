@@ -71,7 +71,7 @@ include './includes/connection.php';?>
                 </div>
             </div>
         </div>
-		<?php include './includes/setting.php'?>
+		<!-- <?php include './includes/setting.php'?> -->
 
 		<?php include './includes/footer.php'?>
 		

@@ -44,7 +44,7 @@ if ($getCount['employee_type'] != "Admin") {
 												<th>Task</th>
 												<th>Sub Task</th>
 												<th>Employee Name</th>
-												<th>Min/Hour</th>
+												<th style="min-width: 135px;">Min/Hour</th>
 												<th>Status</th>
 												<th>Start Date</th>
 												<th>Completion Date</th>
@@ -84,15 +84,16 @@ if ($getCount['employee_type'] != "Admin") {
 													
 													// echo "<pre>";
 													// 	var_dump($subtasks);
-													// $totalTime = 0;
+													$totalTime = 0;
 														foreach ($subtasks as $subtask) {
 															if (is_array($subtask)) {
-																echo $subtask['time_period'];
-																echo !empty($subtask['time_period']) ? '/' : '';
-																// $totalTime += (int) $subtask['time_period'];
+																// echo $subtask['time_period'];
+																// echo !empty($subtask['time_period']) ? '/' : '';
+																$totalTime += (int) $subtask['time_period'];
 															}
 														}
-														// echo $totalTime;
+														echo "<br>Total Time: Min ".$totalTime." <br>Or Hour: ".number_format($totalTime/60, 2);
+														// echo "<br>Total hour: ".$totalTime/60;
 													?></td>
 													<td><?php echo $project['project_status'] ?></td>
 													<td><?php echo $project['start_date'] ?></td>

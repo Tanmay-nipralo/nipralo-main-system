@@ -359,7 +359,7 @@ if (isset($_POST['send'])) {
 
                 $mailBody .= '<b>Assigned Task :</b><br>';
                 $mailBody .= '<table style="border-collapse: collapse;" border="1" cellpadding="10">';
-                $mailBody .= '<tr><th style="border: 1px solid black;">Employee Name</th><th style="border: 1px solid black;">Project Name</th><th style="border: 1px solid black;">Task Name</th><th style="border: 1px solid black;">Sub Task Name</th><th style="border: 1px solid black;">Status</th><th style="border: 1px solid black;">Description</th></tr>';
+                $mailBody .= '<tr><th style="border: 1px solid black;">Employee Name</th><th style="border: 1px solid black;">Project Name</th><th style="border: 1px solid black;">Task Name</th><th style="border: 1px solid black;">Sub Task Name</th><th style="border: 1px solid black;">Status</th><th style="border: 1px solid black;">Description sub-task</th></tr>';
     
                 
                     foreach($getdailytask as $row){
@@ -394,7 +394,7 @@ if (isset($_POST['send'])) {
                     }
                     
                     $mailBody .= '</td>';
-                    $mailBody .= '<td style="border: 1px solid black;">' . $row['description'] . '</td>';
+                    $mailBody .= '<td style="border: 1px solid black;">' . $row['subtask'][0]['description'] . '</td>';
                     $mailBody .= '</tr>';
                    
                 }
@@ -410,11 +410,12 @@ if (isset($_POST['send'])) {
     
                 $mail->Body = $mailBody;
     
-                $mail->send();
-                echo '<script>';
-                echo 'alert("Todays Mail Send Successfully");';
-                echo 'window.location.href = "daily_task.php";';
-                echo '</script>';
+                if($mail->send()){
+                    echo '<script>';
+                    echo 'alert("Todays Mail Send Successfully");';
+                    echo 'window.location.href = "daily_task.php";';
+                    echo '</script>';
+                }
                 
             
         } catch (Exception $e) {

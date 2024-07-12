@@ -223,7 +223,11 @@ if ($teamLeaderArray !== null) {
 										<div class="task-list-container">
                                        <div class="task-list-body">
 									   <div class="tabsearch"><a href="export.php?table=project_task&&project_id=<?php echo $idd;?>" class="btn btn-outline-primary" type="button"><i class="icon icon-download"></i> Excel</a></div>
-											<?php foreach ($project_task1 as $project_task) { ?>
+											<?php $tempx = 0;
+											foreach ($project_task1 as $project_task) {
+												$tempx ++;
+												if($tempx > 1){
+												?>
 									        <div class="accordion" id="accordionExample">
 												<div class="accordion-item">
 													<h2 class="accordion-header">
@@ -316,7 +320,9 @@ if ($teamLeaderArray !== null) {
 											       </div>
 												</div>
 									        </div>
-											<?php }?>
+											<?php 
+												}
+											}?>
 									</div>
 								 </div>
 							  </div>

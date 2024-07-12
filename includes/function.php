@@ -92,32 +92,56 @@ function GetLabelForNavbar($label){
 
     function ProjectCountById($id){
         include 'connection.php';
-        $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM projects WHERE status!=5 AND 
-        JSON_CONTAINS(team_member, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+        
+        // $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM projects WHERE status !=5 AND 
+        // JSON_CONTAINS(team_member, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+
+        $json_id = json_encode([['id' => (string)$id]]);
+        $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM projects WHERE status != 5 AND
+               JSON_CONTAINS(team_member, '$json_id', '$') = 1");
+
         $row = mysqli_fetch_assoc($sql);
         return $row['project_count'];
     }
 
     function ProjectCountTaskById($id){
         include 'connection.php';
-        $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND 
-        JSON_CONTAINS(assign_to, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+
+        // $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND 
+        // JSON_CONTAINS(assign_to, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+
+        $json_id = json_encode([['id' => (string)$id]]);
+        $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND
+               JSON_CONTAINS(assign_to, '$json_id', '$') = 1 ");
+
         $row = mysqli_fetch_assoc($sql);
         return $row['project_count'];
     }
 
     function PendingCountTaskById($id){
         include 'connection.php';
+
+        // $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND subtask_status != 1 AND 
+        // JSON_CONTAINS(assign_to, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+
+        $json_id = json_encode([['id' => (string)$id]]);
         $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND subtask_status != 1 AND 
-        JSON_CONTAINS(assign_to, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+               JSON_CONTAINS(assign_to, '$json_id', '$') = 1 ");
+        
         $row = mysqli_fetch_assoc($sql);
         return $row['project_count'];
     }
 
     function CompletedCountTaskById($id){
         include 'connection.php';
+
+        // $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND subtask_status = 1 AND 
+        // JSON_CONTAINS(assign_to, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+
+        $json_id = json_encode([['id' => (string)$id]]);
         $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM project_subtask WHERE status!=5 AND subtask_status = 1 AND 
-        JSON_CONTAINS(assign_to, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 ");
+                JSON_CONTAINS(assign_to, '$json_id', '$') = 1 ");
+
         $row = mysqli_fetch_assoc($sql);
         return $row['project_count'];
     }
@@ -178,6 +202,7 @@ function GetLabelForNavbar($label){
 
     function getFolders(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM folder WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -234,6 +259,7 @@ function GetLabelForNavbar($label){
 
     function getAppliedCandidate(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM appliedcandidate WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -273,6 +299,7 @@ function GetLabelForNavbar($label){
 
     function getHardware(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM hardware WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -282,6 +309,7 @@ function GetLabelForNavbar($label){
 
     function getVendorShop(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM shop WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -347,6 +375,7 @@ function GetLabelForNavbar($label){
 
     function getAllAssets(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM assets WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $row['employee'] = getEmployeeById($row['asset_user']);
@@ -368,6 +397,7 @@ function GetLabelForNavbar($label){
 
     function getAllDocuments(){
         include 'connection.php';
+        $result = [];
         $sql = mysqli_query($conn,"SELECT * FROM documents WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             // $row['project'] = getProjecById($row['project_id']);
@@ -378,6 +408,7 @@ function GetLabelForNavbar($label){
 
     function getAllPost(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM post WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -391,8 +422,8 @@ function GetLabelForNavbar($label){
         $sql = mysqli_query($conn,"SELECT * FROM project_task WHERE status != 5 AND project_id = $pid ORDER BY id DESC");
         $rowCount = mysqli_num_rows($sql);
         while($row = mysqli_fetch_assoc($sql)){
-            $result[] =$row;
             $result['count'] = $rowCount;
+            $result[] =$row;
         }
         return $result;
     }
@@ -454,7 +485,7 @@ function GetLabelForNavbar($label){
     function getAllProjectsubtask($pid){
         include 'connection.php';
         $result = array();
-        $sql = mysqli_query($conn,"SELECT * FROM project_subtask WHERE status != 5 AND task_id = $pid ORDER BY id DESC");
+        $sql = mysqli_query($conn,"SELECT * FROM project_subtask WHERE status != 5 AND task_id = '$pid' ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
         }
@@ -553,6 +584,7 @@ function GetLabelForNavbar($label){
 
     function getAllSystem(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM `system` WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -757,6 +789,7 @@ function GetLabelForNavbar($label){
 
     function getAllHoliday(){
         include 'connection.php';
+        $result = array();
         $sql = mysqli_query($conn,"SELECT * FROM holiday WHERE status != 5 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
@@ -925,13 +958,22 @@ function GetLabelForNavbar($label){
 
     function getAllProjectsCalender($month, $id){
         include 'connection.php';
+        $result = array();
+
         $sql = mysqli_query($conn, "SELECT * FROM projects WHERE 
         status != 5 AND 
         YEAR(start_date) = YEAR(CURRENT_DATE()) AND 
         (MONTH(start_date) = '$month' OR MONTH(end_date) = '$month') AND 
         JSON_CONTAINS(team_member, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 
         ORDER BY start_date");
-        $result = array();
+
+            // $sql = mysqli_query($conn, "SELECT * FROM projects WHERE 
+            // status != 5 AND 
+            // YEAR(start_date) = YEAR(CURRENT_DATE()) AND 
+            // (MONTH(start_date) = '$month' OR MONTH(end_date) = '$month') AND 
+            // JSON_CONTAINS(team_member, JSON_QUOTE('[{\"id\":\"$id\"}]'), '$') = 1 
+            // ORDER BY start_date");
+
         while($row = mysqli_fetch_assoc($sql)){
             $result[] = $row;
         }

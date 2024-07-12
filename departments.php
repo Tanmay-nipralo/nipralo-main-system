@@ -111,7 +111,7 @@ if ($getCount['employee_type'] != "Admin") {
             </div>
         </div>
 		
-		<?php include './includes/setting.php'?>
+		<!-- <?php include './includes/setting.php'?> -->
 
 		<?php include './includes/footer.php'?>
 <?php
