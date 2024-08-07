@@ -336,8 +336,8 @@ if (isset($_POST['send'])) {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'mails.nipralo@gmail.com';
-            $mail->Password = 'pjgy zvvu lcow ljei';
+            $mail->Username = 'systems.bigdreams@gmail.com';
+            $mail->Password = 'bffm iuoi zgnh cwcn';
             $mail->Port = 587;
             $mail->SMTPSecure = 'tls';
             $mail->setFrom($sql2['mail']);
