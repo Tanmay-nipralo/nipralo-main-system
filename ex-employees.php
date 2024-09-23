@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
 <?php include './includes/header.php';
-$getemployee = getAllEmployee();
+$getemployee = getAllExemployee();
 // echo "<pre>";
 // print_r($getemployee);
 // echo "</pre>";
@@ -62,9 +62,9 @@ if ($getCount['employee_type'] != "Admin") {
 													<a href='#' class='action-icon dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'><i class='material-icons'>more_vert</i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
 														<a class='dropdown-item' href='profile.php?idd=<?php echo $employee['id'] ?>'><i class='fa-regular fa-eye m-r-5'></i> View</a>
-														<a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_employee<?php echo $employee['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i> Edit</a>
-														<a class='dropdown-item' href='employees.php?exemployee=<?php echo $employee['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i> Ex-Employee</a>
-														<!-- <a class='dropdown-item' href='employees.php?deleteid=<?php echo $employee['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i> Delete</a> -->
+														<!-- <a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_employee<?php echo $employee['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i> Edit</a> -->
+														<a class='dropdown-item' href='employees.php?exemployee=<?php echo $employee['id'] ?>'><i class='fa-solid fa-arrow-right-from-bracket m-r-5'></i> Activate Employee</a>
+														<a class='dropdown-item' href='employees.php?deleteid=<?php echo $employee['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i> Delete</a>
 													</div>
 												</div>
 											</td>
@@ -584,7 +584,7 @@ if ($getCount['employee_type'] != "Admin") {
 
 	if (isset($_GET['ex_emp_id'])) {
 		$ex_emp_id = $_GET['ex_emp_id'];
-		$sql = "UPDATE `employees` SET `status`= 3 WHERE id=" . $ex_emp_id;
+		$sql = "UPDATE `employees` SET `status`= 1 WHERE id=" . $ex_emp_id;
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
 			echo "<script>window.location.href = 'employees.php'</script>";

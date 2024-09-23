@@ -562,9 +562,29 @@ function GetLabelForNavbar($label){
     }
 
 
+    // function getAllEmployee(){
+    //     include 'connection.php';
+    //     $sql = mysqli_query($conn,"SELECT * FROM employees WHERE status != 5 ORDER BY id DESC");
+    //     while($row = mysqli_fetch_assoc($sql)){
+    //         $row['dep'] = getDepartmentById($row['department']);
+    //         $row['des'] = getDesignationById($row['designation']);
+    //         $result[] =$row;
+    //     }
+    //     return $result;
+    // }
     function getAllEmployee(){
         include 'connection.php';
-        $sql = mysqli_query($conn,"SELECT * FROM employees WHERE status != 5 ORDER BY id DESC");
+        $sql = mysqli_query($conn,"SELECT * FROM employees WHERE status = 1 ORDER BY id DESC");
+        while($row = mysqli_fetch_assoc($sql)){
+            $row['dep'] = getDepartmentById($row['department']);
+            $row['des'] = getDesignationById($row['designation']);
+            $result[] =$row;
+        }
+        return $result;
+    }
+    function getAllExemployee(){
+        include 'connection.php';
+        $sql = mysqli_query($conn,"SELECT * FROM employees WHERE status = 3 ORDER BY id DESC");
         while($row = mysqli_fetch_assoc($sql)){
             $row['dep'] = getDepartmentById($row['department']);
             $row['des'] = getDesignationById($row['designation']);

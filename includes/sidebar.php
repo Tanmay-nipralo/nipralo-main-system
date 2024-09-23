@@ -75,6 +75,7 @@
 								<ul>
 								<?php if ($getCount['employee_type'] == "Admin") {?>
 									<li><a href="employees.php">All Employees</a></li>
+									<li><a href="ex-employees.php">Ex-Employees</a></li>
 									<!-- <li><a href="attendance.php">Attendance (Admin)</a></li> -->
 								<?php } ?>
 									<li><a href="holidays.php">Holidays</a></li>
