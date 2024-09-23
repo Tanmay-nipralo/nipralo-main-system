@@ -63,8 +63,8 @@ if ($getCount['employee_type'] != "Admin") {
 													<div class='dropdown-menu dropdown-menu-right'>
 														<a class='dropdown-item' href='profile.php?idd=<?php echo $employee['id'] ?>'><i class='fa-regular fa-eye m-r-5'></i> View</a>
 														<!-- <a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_employee<?php echo $employee['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i> Edit</a> -->
-														<a class='dropdown-item' href='employees.php?exemployee=<?php echo $employee['id'] ?>'><i class='fa-solid fa-arrow-right-from-bracket m-r-5'></i> Activate Employee</a>
-														<a class='dropdown-item' href='employees.php?deleteid=<?php echo $employee['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i> Delete</a>
+														<a class='dropdown-item' href='ex-employees.php?exemployee=<?php echo $employee['id'] ?>'><i class='fa-solid fa-arrow-right-from-bracket m-r-5'></i> Activate Employee</a>
+														<a class='dropdown-item' href='ex-employees.php?deleteid=<?php echo $employee['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i> Delete</a>
 													</div>
 												</div>
 											</td>
@@ -540,9 +540,9 @@ if ($getCount['employee_type'] != "Admin") {
 					cancelButtonText: "No, cancel",
 				}).then((result) => {
 					if (result.isConfirmed) {
-						window.location.href = "employees.php?id=' . $id . '";
+						window.location.href = "ex-employees.php?id=' . $id . '";
 					} else {
-						window.location.href = "employees.php";
+						window.location.href = "ex-employees.php";
 					}
 				});';
 			echo '</script>';
@@ -554,7 +554,7 @@ if ($getCount['employee_type'] != "Admin") {
 		$sql = "UPDATE `employees` SET `status`= 5 WHERE id=" . $id;
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
-			echo "<script>window.location.href = 'employees.php'</script>";
+			echo "<script>window.location.href = 'ex-employees.php'</script>";
 		} else {
 			die(mysqli_error($con));
 		}
@@ -566,16 +566,16 @@ if ($getCount['employee_type'] != "Admin") {
 			echo '<script>';
 			echo 'Swal.fire({
 					title: "Are you sure?",
-					html: "You want to mark this employee as <b>Ex-Employeee</b>? <br>You won\'t be able to revert this!",
+					html: "You want to mark this employee as <b>Active</b>?",
 					icon: "warning",
 					showCancelButton: true,
 					confirmButtonText: "Yes, delete it!",
 					cancelButtonText: "No, cancel",
 				}).then((result) => {
 					if (result.isConfirmed) {
-						window.location.href = "employees.php?ex_emp_id=' . $ex_emp_id . '";
+						window.location.href = "ex-employees.php?ex_emp_id=' . $ex_emp_id . '";
 					} else {
-						window.location.href = "employees.php";
+						window.location.href = "ex-employees.php";
 					}
 				});';
 			echo '</script>';
@@ -587,7 +587,7 @@ if ($getCount['employee_type'] != "Admin") {
 		$sql = "UPDATE `employees` SET `status`= 1 WHERE id=" . $ex_emp_id;
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
-			echo "<script>window.location.href = 'employees.php'</script>";
+			echo "<script>window.location.href = 'ex-employees.php'</script>";
 		} else {
 			die(mysqli_error($con));
 		}
@@ -723,7 +723,7 @@ if (isset($_POST['add'])) {
 		<script>
 			toastr.success('Added Successfully!');
 			setTimeout(function() {
-				window.location = "employees.php";
+				window.location = "ex-employees.php";
 			}, 1000);
 		</script>
 	<?php
@@ -732,7 +732,7 @@ if (isset($_POST['add'])) {
 		<script>
 			toastr.error('Error!');
 			setTimeout(function() {
-				window.location = "employees.php";
+				window.location = "ex-employees.php";
 			}, 1000);
 		</script>
 	<?php
@@ -881,7 +881,7 @@ if (isset($_POST['update'])) {
 		<script>
 			toastr.success('Added Successfully!');
 			setTimeout(function() {
-				window.location = "employees.php";
+				window.location = "ex-employees.php";
 			}, 1000);
 		</script>
 	<?php
@@ -890,7 +890,7 @@ if (isset($_POST['update'])) {
 		<script>
 			toastr.error('Error!');
 			setTimeout(function() {
-				window.location = "employees.php";
+				window.location = "ex-employees.php";
 			}, 1000);
 		</script>
 <?php
