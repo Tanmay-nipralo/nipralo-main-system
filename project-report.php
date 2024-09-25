@@ -72,12 +72,35 @@ if ($getCount['employee_type'] != "Admin") {
 														// echo "<pre>";
 														// var_dump($project['team_member']);
 														$x = 0;
+														$employee_names = [];
+														$exemployee_names = [];
 														$teams = json_decode($project['team_member'], true);
-															foreach ($teams as $team) {
-																$x++;
-																echo $x == 1 ? '' : ', ' ;
-																echo $team['name'];
+														// foreach ($teams as $team) {
+														// 	$emp_info = getEmpById($team['id']);
+														// 	// echo $emp_info['status'];
+														// 	if($emp_info['status'] == 1){
+														// 	$x++;
+														// 	echo $x == 1 ? '' : ', ' ;
+														// 	echo $team['name'];
+														// 	} elseif ($emp_info['status'] == 3) {
+														// 		echo "Ex-Employee: ".$team['name'];
+														// 	}
+														// }
+														foreach ($teams as $team) {
+															$emp_info = getEmpById($team['id']);
+															if ($emp_info['status'] == 1) {
+																$employee_names[] = $team['name']; // Add active employee name to the array
+															} elseif ($emp_info['status'] == 3) {
+																$exemployee_names[] = $team['name']; // Add ex-employee name to the array
 															}
+														}
+
+														if (!empty($employee_names)) {
+															echo "<br> <u>Emp:</u> " . implode(', ', $employee_names);
+														}
+														if (!empty($exemployee_names)) {
+															echo "<br> <u>Ex-Emp:</u> " . implode(', ', $exemployee_names);
+														}
 													?></td>
 													<td><?php 
 													// echo 'id='.$project['id'].'<br>';

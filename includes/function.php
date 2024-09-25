@@ -980,12 +980,12 @@ function GetLabelForNavbar($label){
         include 'connection.php';
         $result = array();
 
-        $sql = mysqli_query($conn, "SELECT * FROM projects WHERE 
-        status != 5 AND 
-        YEAR(start_date) = YEAR(CURRENT_DATE()) AND 
-        (MONTH(start_date) = '$month' OR MONTH(end_date) = '$month') AND 
-        JSON_CONTAINS(team_member, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 
-        ORDER BY start_date");
+        // $sql = mysqli_query($conn, "SELECT * FROM projects WHERE 
+        // status != 5 AND 
+        // YEAR(start_date) = YEAR(CURRENT_DATE()) AND 
+        // (MONTH(start_date) = '$month' OR MONTH(end_date) = '$month') AND 
+        // JSON_CONTAINS(team_member, CAST('[{\"id\":\"$id\"}]' AS JSON), '$') = 1 
+        // ORDER BY start_date");
 
             // $sql = mysqli_query($conn, "SELECT * FROM projects WHERE 
             // status != 5 AND 
@@ -993,6 +993,16 @@ function GetLabelForNavbar($label){
             // (MONTH(start_date) = '$month' OR MONTH(end_date) = '$month') AND 
             // JSON_CONTAINS(team_member, JSON_QUOTE('[{\"id\":\"$id\"}]'), '$') = 1 
             // ORDER BY start_date");
+
+                $jsonString = '[{"id":"' . $id . '"}]';
+
+                // Prepare the SQL query
+                $sql = mysqli_query($conn, "SELECT * FROM projects WHERE 
+                    status != 5 AND 
+                    YEAR(start_date) = YEAR(CURRENT_DATE()) AND 
+                    (MONTH(start_date) = '$month' OR MONTH(end_date) = '$month') AND 
+                    JSON_CONTAINS(team_member, '$jsonString', '$') = 1 
+                    ORDER BY start_date");
 
         while($row = mysqli_fetch_assoc($sql)){
             $result[] = $row;
