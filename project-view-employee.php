@@ -164,6 +164,7 @@
                            </div>
                         </div>
                      </div>
+                     
                   </div>
                   <div class="col-lg-4 col-xl-3">
                      <div class="card">
@@ -737,7 +738,11 @@
                                            $decodedTeamMember = json_decode($project_sel['team_member'], true);
                                            if (is_array($decodedTeamMember)) {
                                                foreach ($decodedTeamMember as $teamMember) {
-                                                   echo "<option value='" . $teamMember['id'] . "'>" . $teamMember['name'] . "</option>";
+                                                   $TeamMembDetails = getEmpById($teamMember['id']);
+                                                   if(!empty($TeamMembDetails)){
+                                                      // echo "<option value='" . $teamMember['id'] . "'>" . $teamMember['name'] . "</option>";
+                                                      echo "<option value='" . $TeamMembDetails['id'] . "'>" . $TeamMembDetails['first_name'] . "</option>";
+                                                   }
                                                }
                                            }
                                            ?>
@@ -966,8 +971,8 @@
          if (isset($_POST['addTask'])) {
              $projectID = $_POST['projectID'];
              $tittle = mysqli_real_escape_string($conn, $_POST["tittle"]);
-             $assign_by = $_POST["assign_by"];
-             $assign_to = $_POST["assign_to"];
+            //  $assign_by = $_POST["assign_by"];
+            //  $assign_to = $_POST["assign_to"];
              $start_date = $_POST["start_date"];
              $end_date = $_POST["end_date"];
              $priority = $_POST["priority"];
@@ -1034,8 +1039,8 @@
              $projectID = $_POST["projectID"];
              $taskID = $_POST["taskID"];
              $tittle = mysqli_real_escape_string($conn, $_POST["tittle"]);
-             $assign_by = $_POST["assign_by"];
-             $assign_to = $_POST["assign_to"];
+            //  $assign_by = $_POST["assign_by"];
+            //  $assign_to = $_POST["assign_to"];
              $start_date = $_POST["start_date"];
              $end_date = $_POST["end_date"];
              $priority = $_POST["priority"];
@@ -1106,8 +1111,8 @@
              $projectID = $_POST["projectID"];
              $taskID = $_POST["taskID"];
              $tittle = mysqli_real_escape_string($conn, $_POST["tittle"]);
-             $assign_by = $_POST["assign_by"];
-             $assign_to = $_POST["assign_to"];
+            //  $assign_by = $_POST["assign_by"];
+            //  $assign_to = $_POST["assign_to"];
              $start_date = $_POST["start_date"];
              $end_date = $_POST["end_date"];
              $priority = $_POST["priority"];

@@ -169,7 +169,7 @@ $project_subtask = mysqli_fetch_assoc($result_Subtask);
         $subtaskID = $_POST["subtaskID"];
         $projectID = $_POST["projectID"];
         $taskID = $_POST["taskID"];
-        $tittle = $_POST["tittle"];
+        $tittle = mysqli_real_escape_string($conn, $_POST["tittle"]);
         $assign_by = $_POST["assign_by"];
         $assign_to = $_POST["assign_to"];
         $start_date = $_POST["start_date"];
@@ -177,7 +177,7 @@ $project_subtask = mysqli_fetch_assoc($result_Subtask);
         $priority = $_POST["priority"];
         $time_period = $_POST["time_period"];
         // $subtask_status = $_POST['subtask_status'];
-        $desc = $_POST["desc"];
+        $desc = mysqli_real_escape_string($conn, $_POST["desc"]);
         $update_time = date('Y-m-d H:i:s');
     
         $selectedTeamLeader = isset($_POST['team_leader']) ? $_POST['team_leader'] : [];

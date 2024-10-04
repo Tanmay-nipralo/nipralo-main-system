@@ -384,9 +384,21 @@ function GetLabelForNavbar($label){
         return $result;
     }
 
+    // function getEmployeeById($bid){
+    //     include 'connection.php';
+    //     $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = '$bid'");
+       
+    //     while($row = mysqli_fetch_assoc($sql)){
+    //         $row['des'] = getDesignationById($row['designation']);
+    //         $result[] =$row;
+    //     }
+    //     return $result;
+    // }
+
     function getEmployeeById($bid){
         include 'connection.php';
-        $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = '$bid'");
+        $result = array();
+        $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = '$bid' and status = 1");
        
         while($row = mysqli_fetch_assoc($sql)){
             $row['des'] = getDesignationById($row['designation']);
@@ -838,7 +850,8 @@ function GetLabelForNavbar($label){
 
     function getEmpById($bid){
         include 'connection.php';
-        $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = $bid");
+        $result = array();
+        $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = '$bid' and status = 1");
        
         while($row = mysqli_fetch_assoc($sql)){
             $row['department'] = getDepartmentById($row['department']);
