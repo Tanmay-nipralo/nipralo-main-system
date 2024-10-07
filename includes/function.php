@@ -60,10 +60,6 @@ function GetLabelForNavbar($label){
             return "Hardware";
          case "vendorshop":
             return "Vendor Shop";
-        case "hardware":
-            return "Hardware";
-        case "hardware":
-            return "Hardware";
         default:
             return "";
     }

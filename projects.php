@@ -284,7 +284,7 @@ if ($getCount['employee_type'] != "Admin") {
 <?php include './includes/footer.php'?>
 	<script>
 		$(document).ready(function () {
-			$('.statusSelect').on('change', function () {
+			$(document).on('change', '.statusSelect', function () {
 				var selectedValue = $(this).val();
 				var subtaskId = $(this).siblings('.subtaskId').val();
 					$.ajax({
@@ -307,7 +307,7 @@ if ($getCount['employee_type'] != "Admin") {
 	
 	<script>
 		$(document).ready(function () {
-			$('.dynamic_status').on('change', function () {
+			$(document).on('change', '.dynamic_status', function () {
 				var dynamic_stat_id = $(this).val();
 				var subtaskId = $(this).closest('tr').find('.subtaskId').val();
 					$.ajax({
