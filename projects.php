@@ -4,6 +4,7 @@
 $getproject = getAllProjects();
 $getclients = getAllClient();
 $getemployee = getAllEmployee();
+$getStatus = getAllStatus();
 
 if ($getCount['employee_type'] != "Admin") {
 	header("Location: error-404.php");
@@ -46,6 +47,7 @@ if ($getCount['employee_type'] != "Admin") {
 																<th>Completion Date</th>
 																<th>Position</th>
 																<th>Project Manager</th>
+																<th>Status</th>
 																<th>Total Days</th>
 																<th>Action</th>
 																</tr>
@@ -81,6 +83,14 @@ if ($getCount['employee_type'] != "Admin") {
 																		}
 																	?>
 
+																	<td>
+																		<select class="dynamic_status select" >
+																			<option value="" selected disabled>Select Status</option>
+																		<?php foreach ($getStatus as $status) { ?>
+																			<option value="<?= $status['id']; ?>" <?php echo ($status['id'] == $project['dynamic_status']) ? 'selected' : ''; ?>> <?= $status['status_name'];?> </option>
+																		<?php } ?>
+																		</select>
+																	</td>
 																	<td><?php echo $project['total_days'] ?></td>
 																	<td>
 																		<div style="display: flex;justify-content: center;">
@@ -284,14 +294,40 @@ if ($getCount['employee_type'] != "Admin") {
 
 						success: function (response) {
 							console.log(response);
+							toastr.success(response);
 						},
 						error: function (xhr, status, error) {
 							console.error(error);
+							toastr.error(error);
 						}
 					});
 				});
 			});
 	</script>
+	
+	<script>
+		$(document).ready(function () {
+			$('.dynamic_status').on('change', function () {
+				var dynamic_stat_id = $(this).val();
+				var subtaskId = $(this).closest('tr').find('.subtaskId').val();
+					$.ajax({
+						url: 'updatePositionStatus.php',
+						method: 'POST',
+						data: { dynamic_status: dynamic_stat_id, pid: subtaskId },
+
+						success: function (response) {
+							console.log(response);
+							toastr.success(response);
+						},
+						error: function (xhr, status, error) {
+							console.error(error);
+							toastr.error(error);
+						}
+					});
+				});
+			});
+	</script>
+
     <script>
       $(document).ready(function() {
         var multipleCancelButton = new Choices('.choices-multiple-remove-button', {

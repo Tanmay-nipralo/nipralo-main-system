@@ -169,7 +169,7 @@ function GetLabelForNavbar($label){
 
     function OutProjectCount(){
         include 'connection.php';
-        $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM projects WHERE project_status = 'Outgoing Projects' AND status!=5");
+        $sql = mysqli_query($conn, "SELECT COUNT(*) AS project_count FROM projects WHERE project_status = 'Ongoing Projects' AND status!=5");
         $row = mysqli_fetch_assoc($sql);
         return $row['project_count'];
     }
@@ -242,6 +242,16 @@ function GetLabelForNavbar($label){
     function getAllDepartment(){
         include 'connection.php';
         $sql = mysqli_query($conn,"SELECT * FROM departments WHERE status != 5 ORDER BY id DESC");
+        while($row = mysqli_fetch_assoc($sql)){
+            $result[] =$row;
+        }
+        return $result;
+    }
+
+    function getAllStatus(){
+        include 'connection.php';
+        $result = array();
+        $sql = mysqli_query($conn,"SELECT * FROM project_status WHERE status != 5 ORDER BY id asc");
         while($row = mysqli_fetch_assoc($sql)){
             $result[] =$row;
         }
@@ -851,7 +861,7 @@ function GetLabelForNavbar($label){
     function getEmpById($bid){
         include 'connection.php';
         $result = array();
-        $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = '$bid' and status = 1");
+        $sql = mysqli_query($conn,"SELECT * FROM `employees` WHERE id = '$bid'");
        
         while($row = mysqli_fetch_assoc($sql)){
             $row['department'] = getDepartmentById($row['department']);

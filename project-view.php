@@ -6,9 +6,11 @@ include './includes/header.php';
 $getalldocument = getAllDocuments();
 $idd = $_GET['idd'];
 
-$query_select = "SELECT * from projects WHERE id='$idd'";
-$result_select = mysqli_query($conn, $query_select);
-$project_sel = mysqli_fetch_assoc($result_select);
+// $query_select = "SELECT * from projects WHERE id='$idd'";
+// $result_select = mysqli_query($conn, $query_select);
+// $project_sel = mysqli_fetch_assoc($result_select);
+$project_sel = getProjecById($idd);
+$project_sel = $project_sel[0];
 $pid = $project_sel['id'];
 $project_task1 = getAllProjecttask($pid);
 $folders = getFolders();
@@ -309,7 +311,9 @@ if ($teamLeaderArray !== null) {
 																		<input type="hidden" class="projectId" name="projectid" value="<?php echo $project_subtask['project_id'] ?>">
 																		<input class="subtaskTitle" type="hidden" name="subtitle" value="<?php echo $project_subtask['tittle'] ?>">
 																	</td>
-																<td><a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_subtask<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a>
+																<td>
+																	<!-- <a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_subtask<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a> -->
+																	<a class='dropdown-item' href='edit_subtask.php?pid=<?php echo $tid;?>&&sid=<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a>
 																<a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#delete_subtask<?php echo $project_subtask['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i></a>
 																	</td>
 																	</tr>

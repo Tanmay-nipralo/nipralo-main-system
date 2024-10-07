@@ -569,7 +569,7 @@ if ($getCount['employee_type'] != "Admin") {
 					html: "You want to mark this employee as <b>Active</b>?",
 					icon: "warning",
 					showCancelButton: true,
-					confirmButtonText: "Yes, delete it!",
+					confirmButtonText: "Yes",
 					cancelButtonText: "No, cancel",
 				}).then((result) => {
 					if (result.isConfirmed) {

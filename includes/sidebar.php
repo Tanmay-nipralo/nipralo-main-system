@@ -24,6 +24,7 @@
 								<ul>
 								<li><a href="projects.php">All Projects</a></li>
 								<li><a href="project-report.php">Projects Report</a></li>
+								<li><a href="project-table.php">Projects Table</a></li>
 								<li><a href="assignbyproject.php">Assigned By Project</a></li>
 								</ul>
 							</li>

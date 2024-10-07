@@ -632,7 +632,11 @@
                                        $decodedTeamMember = json_decode($project_sel['team_member'], true);
                                        if (is_array($decodedTeamMember)) {
                                            foreach ($decodedTeamMember as $teamMember) {
-                                               echo "<option value='" . $teamMember['id'] . "'>" . $teamMember['name'] . "</option>";
+                                             //   echo "<option value='" . $teamMember['id'] . "'>" . $teamMember['name'] . "</option>";
+                                             $TeamMembDetails = getEmpById($teamMember['id']);
+                                                   if(!empty($TeamMembDetails) && $TeamMembDetails['status'] == 1){
+                                                      echo "<option value='" . $TeamMembDetails['id'] . "'>" . $TeamMembDetails['first_name'] . "</option>";
+                                                   }
                                            }
                                        }
                                        ?>
@@ -654,9 +658,10 @@
             </div>
          
             <?php
-               $querytask = "SELECT * FROM project_task";
-               $resulttask = mysqli_query($conn, $querytask);
-               while ($task = mysqli_fetch_assoc($resulttask)) {
+               // $querytask = "SELECT * FROM project_task";
+               // $resulttask = mysqli_query($conn, $querytask);
+               // while ($task = mysqli_fetch_assoc($resulttask)) {
+               foreach($project_task1 as $task) {
                    ?>
             <div id="add_subtask<?php echo $task['id'] ?>" class="modal custom-modal fade" role="dialog">
                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -739,7 +744,7 @@
                                            if (is_array($decodedTeamMember)) {
                                                foreach ($decodedTeamMember as $teamMember) {
                                                    $TeamMembDetails = getEmpById($teamMember['id']);
-                                                   if(!empty($TeamMembDetails)){
+                                                   if(!empty($TeamMembDetails) && $TeamMembDetails['status'] == 1){
                                                       // echo "<option value='" . $teamMember['id'] . "'>" . $teamMember['name'] . "</option>";
                                                       echo "<option value='" . $TeamMembDetails['id'] . "'>" . $TeamMembDetails['first_name'] . "</option>";
                                                    }
@@ -762,175 +767,10 @@
                   </div>
                </div>
             </div>
-            <?php } ?>
+            <?php } 
+            ?>
            
-            <?php
-               $query_Subtask = "SELECT * FROM project_subtask";
-               $result_Subtask = mysqli_query($conn, $query_Subtask);
-               while ($project_subtask = mysqli_fetch_assoc($result_Subtask)) {
-                   ?>
-            <!-- Edit subtask Modal -->
-            <!-- <div id="edit_subtask<?php echo $project_subtask['id']; ?>" class="modal custom-modal fade" role="dialog">
-               <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Sub Task</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                     </div>
-                     <div class="modal-body">
-                        <form method="post" enctype="multipart/form-data">
-                           <div class="row">
-                              <div class="col-sm-6">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">Tittle</label>
-                                    <input class="form-control" type="text" value="<?php echo $project_subtask['tittle'] ?>" name="tittle">
-                                    
-                                     <input class='form-control' type='hidden' value=<?php echo $idd; ?>   name='projectID'>
-                                     
-                                    <input class="form-control" type="hidden" value="<?php echo $project_subtask['task_id'] ?>"  name="taskID">
-                                    <input class="form-control" type="hidden" value="<?php echo $project_subtask['id'] ?>"  name="subtaskID">
-                                 </div>
-                              </div>
-                              <div class="col-sm-6">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">Assign By</label>
-                                    <select class="choices-multiple-remove-button" name="team_leader[]"    placeholder="--Select--" id="country" required multiple>
-                                    <?php
-                                       $projectLeaders = $project_sel['project_leader'];
-                                           $decodedTeamLeader = json_decode($project_subtask['assign_by'], true);
-                                           if (is_array($decodedTeamLeader)) {
-                                               foreach ($decodedTeamLeader as $teamLeader) {
-                                                   $isSelected = ($teamLeader['id'] == $decodedTeamLeader[0]['id']); 
-                                       
-                                                   echo "<option value='" . $teamLeader['id'] . "'";
-                                                   if ($isSelected) {
-                                                       echo " selected";
-                                                   }
-                                                   echo ">" . $teamLeader['name'] . "</option>";
-                                               }
-                                           }
-                                           ?>
-                                    </select>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-sm-6">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">Start Date</label>
-                                    <div class="cal-icon">
-                                       <input class="form-control datetimepicker" type="text" value="<?php echo $project_subtask['start_date'] ?>" name="start_date">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-sm-6">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">End Date</label>
-                                    <div class="cal-icon">
-                                       <input class="form-control datetimepicker" type="text" value="<?php echo $project_subtask['end_date'] ?>" name="end_date">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-sm-6">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">Priority</label>
-                                    <select class="select" name="priority">
-                                       <option <?php echo ($project_subtask['priority'] == 'High') ? 'selected' : ''; ?>>High</option>
-                                       <option <?php echo ($project_subtask['priority'] == 'Medium') ? 'selected' : ''; ?>>Medium</option>
-                                       <option <?php echo ($project_subtask['priority'] == 'Low') ? 'selected' : ''; ?>>Low</option>
-                                    </select>
-                                 </div>
-                              </div>
-                              <div class="col-sm-6">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">Time Period</label>
-                                    <input class="form-control" name="time_period" value="<?php echo $project_subtask['time_period'] ?>">
-                                 </div>
-                              </div>
-                              <div class="col-sm-12">
-                                 <div class="input-block mb-3">
-                                    <label class="col-form-label">Assign To</label>
-                                    <select class="select" name="team_member[]" required>
-                                    <?php
-                                       $projectLeaders = json_decode($project_sel['team_member'], true);
-                                           $decodedTeamLeader = json_decode($project_subtask['assign_to'], true);
-                                           var_dump("this is Team", $decodedTeamLeader);
-                                       
-                                           if (is_array($projectLeaders)) {
-                                               foreach ($projectLeaders as $teamLeader) {
-                                                   $isSelected = false;
-                                                   foreach ($decodedTeamLeader as $selectedLeader) {
-                                                       if ($teamLeader['id'] == $selectedLeader['id']) {
-                                                           $isSelected = true;
-                                                           break; 
-                                                       }
-                                                   }
-                                       
-                                                   echo "<option value='" . $teamLeader['id'] . "'";
-                                                   if ($isSelected) {
-                                                       echo " selected";
-                                                   }
-                                                   echo ">" . $teamLeader['name'] . "</option>";
-                                               }
-                                           }
-                                           ?>
-                                    </select>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="input-block mb-3">
-                              <label class="col-form-label">Description</label>
-                              <textarea rows="4" class="form-control" name="desc"><?php echo $project_subtask['description'] ?></textarea>
-                           </div>
-                           <div class="submit-section">
-                              <button class="btn btn-primary submit-btn" type="submit" name="updateSubTask">Save</button>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div> -->
-            <?php
-               }
-               ?>
            
-            <?php
-               $querytask = "SELECT * FROM documents";
-               $resulttask = mysqli_query($conn, $querytask);
-               while ($document = mysqli_fetch_assoc($resulttask)) {
-                   ?>
-            <!-- <div class="modal custom-modal fade" id="delete_task<?php echo $document['id']; ?>" role="dialog">
-               <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                     <div class="modal-body">
-                        <div class="form-header">
-                           <h3>Delete Document</h3>
-                           <p>Are you sure want to delete?</p>
-                        </div>
-                        <form method="post" enctype="multipart/form-data">
-                           <input class="form-control" type="hidden" value="<?php echo $document['id'] ?>"  name="docID">
-                           <div class="modal-btn delete-action">
-                              <div class="row">
-                                 <div class="col-6">
-                                    <button  type="submit" name="deletedoc" class="btn btn-primary continue-btn">Delete</button>
-                                 </div>
-                                 <div class="col-6">
-                                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
-                                 </div>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div> -->
-            <?php
-               }
-               ?>
          </div>
       </div>
      
