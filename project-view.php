@@ -319,8 +319,8 @@ $folders = getFolders();
 																								<input class="subtaskTitle" type="hidden" name="subtitle" value="<?php echo $project_subtask['tittle'] ?>">
 																							</td>
 																							<td>
-																								<a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_subtask<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a>
-																								<!-- <a class='dropdown-item' href='edit_subtask.php?pid=<?php echo $tid; ?>&&sid=<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a> -->
+																								<!-- <a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#edit_subtask<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a> -->
+																								<a class='dropdown-item' href='edit_subtask.php?pid=<?php echo $tid; ?>&&sid=<?php echo $project_subtask['id'] ?>'><i class='fa-solid fa-pencil m-r-5'></i></a>
 																								<a class='dropdown-item' href='#' data-bs-toggle='modal' data-bs-target='#delete_subtask<?php echo $project_subtask['id'] ?>'><i class='fa-regular fa-trash-can m-r-5'></i></a>
 																							</td>
 																						</tr>
@@ -891,7 +891,7 @@ $folders = getFolders();
 			$project_subtask1 =	getAllSubtaskByProjectId($project_sel['id']);
 			foreach ($project_subtask1 as $project_subtask) {
 			?>
-				<div id="edit_subtask<?php echo $project_subtask['id']; ?>" class="modal custom-modal fade" role="dialog">
+				<!-- <div id="edit_subtask<?php echo $project_subtask['id']; ?>" class="modal custom-modal fade" role="dialog">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1028,7 +1028,7 @@ $folders = getFolders();
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			<?php
 			}
 			?>
